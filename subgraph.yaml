@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: LensHubProxy
+    name: LensHub
     network: matic
     source:
       address: "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d"
-      abi: LensHubProxy
+      abi: LensHub
       startBlock: 28384641
     mapping:
       kind: ethereum/events
@@ -18,13 +18,13 @@ dataSources:
         - BeaconUpgraded
         - Upgraded
       abis:
-        - name: LensHubProxy
-          file: ./abis/LensHubProxy.json
+        - name: LensHub
+          file: ./abis/LensHub.json
       eventHandlers:
-        - event: AdminChanged(address,address)
-          handler: handleAdminChanged
-        - event: BeaconUpgraded(indexed address)
-          handler: handleBeaconUpgraded
-        - event: Upgraded(indexed address)
-          handler: handleUpgraded
+        - event: ProfileCreated(indexed uint256,indexed address,indexed address,string,string,address,bytes,string,uint256)
+          handler: handleProfileCreated
+        - event: PostCreated(indexed uint256,indexed uint256,string,address,bytes,address,bytes,uint256)
+          handler: handlePostCreated
+        - event: MirrorCreated(indexed uint256,indexed uint256,uint256,uint256,bytes,address,bytes,uint256)
+          handler: handleMirrorCreated
       file: ./src/lens-hub-proxy.ts

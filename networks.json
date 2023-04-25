@@ -3,6 +3,9 @@
     "LensHubProxy": {
       "address": "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d",
       "startBlock": 28384641
+    },
+    "Contract": {
+      "address": "0xeCd1d11B69FFd9794d45269247f9Fc139462bC12"
     }
   }
 }

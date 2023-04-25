@@ -1,24 +1,32 @@
-type AdminChanged @entity(immutable: true) {
-  id: Bytes!
-  previousAdmin: Bytes! # address
-  newAdmin: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type Profile @entity {
+  id: ID!
+  creator: Bytes!
+  to: Bytes!
+  handle: String!
+  imageURI: String!
+  followModule: String!
+  followModuleReturnData: Bytes!
+  followNFTURI: String!
+  timestamp: BigInt!
 }
 
-type BeaconUpgraded @entity(immutable: true) {
-  id: Bytes!
-  beacon: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type Post @entity {
+  id: ID!
+  profileId: ID!
+  contentURI: String!
+  collectModule: Bytes!
+  collectModuleReturnData: Bytes!
+  refernceModule: Bytes!
+  refenceModuleReturnData: Bytes!
+  timestamp: BigInt!
 }
-
-type Upgraded @entity(immutable: true) {
-  id: Bytes!
-  implementation: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type Mirror @entity {
+  id: ID!
+  profileId: ID!
+  profileIdPointed: BigInt!
+  pubIdPointed: BigInt!
+  referenceModuleData: Bytes!
+  referenceModule: Bytes!
+  referenceModuleReturnData: Bytes!
+  timestamp: BigInt!
 }
