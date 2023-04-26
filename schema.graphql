@@ -8,11 +8,22 @@ type Profile @entity {
   followModuleReturnData: Bytes!
   followNFTURI: String!
   timestamp: BigInt!
+  post: [Post!] @derivedFrom(field: "profile")
+  mirror: [Mirror!] @derivedFrom(field: "profile")
+}
+
+type ProfileFollowing @entity {
+  " followerProfile - followingProfile "
+  id: ID!
+  follower: Profile!
+  following: Profile!
+  followerCount: BigInt!
+  followingCount: BigInt!
 }
 
 type Post @entity {
   id: ID!
-  profileId: ID!
+  profile: Profile!
   contentURI: String!
   collectModule: Bytes!
   collectModuleReturnData: Bytes!
@@ -20,9 +31,10 @@ type Post @entity {
   refenceModuleReturnData: Bytes!
   timestamp: BigInt!
 }
+
 type Mirror @entity {
   id: ID!
-  profileId: ID!
+  profile: Profile!
   profileIdPointed: BigInt!
   pubIdPointed: BigInt!
   referenceModuleData: Bytes!
