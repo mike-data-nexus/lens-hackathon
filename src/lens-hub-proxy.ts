@@ -2,13 +2,14 @@ import {
   ProfileCreated,
   PostCreated,
   MirrorCreated,
+  Followed,
 } from "./../generated/LensHub/LensHub";
 import {
   AdminChanged as AdminChangedEvent,
   BeaconUpgraded as BeaconUpgradedEvent,
   Upgraded as UpgradedEvent,
 } from "../generated/LensHubProxy/LensHubProxy";
-import { Profile, Post, Mirror } from "../generated/schema";
+import { Profile, Post, Mirror, ProfileFollowing } from "../generated/schema";
 import { BigInt } from "@graphprotocol/graph-ts";
 
 export function handleProfileCreated(event: ProfileCreated): void {
@@ -29,7 +30,7 @@ export function handleProfileCreated(event: ProfileCreated): void {
 export function handlePostCreated(event: PostCreated): void {
   let post = new Post(event.params.pubId.toString());
 
-  post.profileId = event.params.profileId.toHexString();
+  post.profile = event.params.profileId.toString();
   post.contentURI = event.params.contentURI;
   post.collectModule = event.params.collectModule;
   post.collectModuleReturnData = event.params.collectModuleReturnData;
@@ -43,7 +44,7 @@ export function handlePostCreated(event: PostCreated): void {
 export function handleMirrorCreated(event: MirrorCreated): void {
   let mirror = new Mirror(event.params.pubId.toString());
 
-  mirror.profileId = event.params.profileId.toHexString();
+  mirror.profile = event.params.profileId.toString();
   mirror.profileIdPointed = event.params.profileIdPointed;
   mirror.pubIdPointed = event.params.pubIdPointed;
   mirror.referenceModuleData = event.params.referenceModuleData;
@@ -52,4 +53,17 @@ export function handleMirrorCreated(event: MirrorCreated): void {
   mirror.timestamp = event.params.timestamp;
 
   mirror.save();
+}
+
+export function handleFollowed(event: Followed): void {
+  //load follower profile
+  let follower = Profile.load(event.params.follower.toHexString());
+}
+//load following profile
+let profileFollowing = ProfileFollowing.load();
+
+if (!profileFollowing) {
+  profileFollowing = new ProfileFollowing();
+
+  profileFollowing.follower = "blah";
 }
