@@ -53,9 +53,7 @@ type Mirror @entity {
   timestamp: BigInt!
 }
 
-type FollowModuleSet @entity {
+type FollowModule @entity {
   id: ID!
-  followModule: Bytes!
-  followModuleDataReturn: Bytes!
-  timestamp: BigInt!
+  profile: Profile!
 }

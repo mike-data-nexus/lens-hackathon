@@ -1,5 +1,5 @@
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { Account, Protocol } from "../generated/schema";
+import { Account, Profile, Protocol } from "../generated/schema";
 
 export namespace constants {
   export const protocol = "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d";
@@ -30,4 +30,10 @@ export function GetOrCreateAccount(account: Address): Account {
   }
 
   return _account as Account;
+}
+
+export function GetProfile(profile: BigInt): Profile {
+  let _profile = Profile.load(profile.toString());
+
+  return _profile as Profile;
 }

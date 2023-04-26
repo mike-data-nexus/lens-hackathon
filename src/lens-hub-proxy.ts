@@ -3,6 +3,7 @@ import {
   PostCreated,
   MirrorCreated,
   Followed,
+  FollowModuleSet,
 } from "./../generated/LensHub/LensHub";
 import {
   AdminChanged as AdminChangedEvent,
@@ -13,13 +14,18 @@ import {
   Profile,
   Post,
   Mirror,
-  ProfileFollowing,
+  //  ProfileFollowing,
   Protocol,
-  FollowModuleSet,
+  FollowModule,
   Account,
 } from "../generated/schema";
 import { BigInt } from "@graphprotocol/graph-ts";
-import { GetProtocol, constants, GetOrCreateAccount } from "./utils";
+import {
+  GetProtocol,
+  constants,
+  GetOrCreateAccount,
+  GetProfile,
+} from "./utils";
 
 export function handleProfileCreated(event: ProfileCreated): void {
   let protocol = GetProtocol();
@@ -70,17 +76,32 @@ export function handleMirrorCreated(event: MirrorCreated): void {
   mirror.save();
 }
 
-export function handleFollowModuleSet(event: FollowModuleSet): void {}
+export function handleFollowModuleSet(event: FollowModuleSet): void {
+  let followModule = FollowModule.load(event.params.followModule.toHexString());
+  let profile = GetProfile(event.params.profileId);
+
+  if (!followModule) {
+    followModule = new FollowModule(event.params.followModule.toHexString());
+  }
+
+  followModule.profile = event.params.profileId.toString();
+  followModule.save();
+  profile.followModule = followModule.id;
+  profile.save();
+}
 
 export function handleFollowed(event: Followed): void {
+  //let followed = new Followed()
+
   //load follower profile
   let follower = Profile.load(event.params.follower.toHexString());
 }
 //load following profile
-let profileFollowing = ProfileFollowing.load();
+// export function handle
+// let profileFollowing = new ProfileFollowing();
 
-if (!profileFollowing) {
-  profileFollowing = new ProfileFollowing();
+// if (!profileFollowing) {
+//   profileFollowing = new ProfileFollowing();
 
-  profileFollowing.follower = "blah";
-}
+//   profileFollowing.follower = "blah";
+// }
