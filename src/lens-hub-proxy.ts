@@ -9,14 +9,29 @@ import {
   BeaconUpgraded as BeaconUpgradedEvent,
   Upgraded as UpgradedEvent,
 } from "../generated/LensHubProxy/LensHubProxy";
-import { Profile, Post, Mirror, ProfileFollowing } from "../generated/schema";
+import {
+  Profile,
+  Post,
+  Mirror,
+  ProfileFollowing,
+  Protocol,
+  FollowModuleSet,
+  Account,
+} from "../generated/schema";
 import { BigInt } from "@graphprotocol/graph-ts";
+import { GetProtocol, constants, GetOrCreateAccount } from "./utils";
 
 export function handleProfileCreated(event: ProfileCreated): void {
+  let protocol = GetProtocol();
+
+  protocol.totalUsers = protocol.totalUsers.plus(constants.BIGINT_ONE);
+
+  let account = GetOrCreateAccount(event.params.to);
+
   let profile = new Profile(event.params.profileId.toString());
 
   profile.creator = event.params.creator;
-  profile.to = event.params.to;
+  profile.owner = account.id;
   profile.handle = event.params.handle;
   profile.imageURI = event.params.imageURI;
   profile.followModule = event.params.followModule.toHexString();
@@ -54,6 +69,8 @@ export function handleMirrorCreated(event: MirrorCreated): void {
 
   mirror.save();
 }
+
+export function handleFollowModuleSet(event: FollowModuleSet): void {}
 
 export function handleFollowed(event: Followed): void {
   //load follower profile

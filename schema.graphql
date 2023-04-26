@@ -1,7 +1,17 @@
+type Protocol @entity {
+  id: ID!
+  totalUsers: BigInt!
+}
+
+type Account @entity {
+  id: Bytes!
+  profile: [Profile!] @derivedFrom(field: "owner")
+}
+
 type Profile @entity {
   id: ID!
   creator: Bytes!
-  to: Bytes!
+  owner: Account!
   handle: String!
   imageURI: String!
   followModule: String!
@@ -40,5 +50,12 @@ type Mirror @entity {
   referenceModuleData: Bytes!
   referenceModule: Bytes!
   referenceModuleReturnData: Bytes!
+  timestamp: BigInt!
+}
+
+type FollowModuleSet @entity {
+  id: ID!
+  followModule: Bytes!
+  followModuleDataReturn: Bytes!
   timestamp: BigInt!
 }
