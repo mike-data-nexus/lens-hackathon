@@ -95,48 +95,39 @@ export function handleFollowModuleSet(event: FollowModuleSet): void {
 }
 
 export function handleFollowNFTDeployed(event: FollowNFTDeployed): void {
-  let followNFTDeployed = new FollowNFTDeployed(event.followNFT.toString());
-
-  followNFTDeployed.id = event.id;
-  followNFTDeployed.followNFT = event.followNFT;
-  followNFTDeployed.timestamp = event.timestamp;
-
-  followNFTDeployed.save();
+  //let followNFTDeployed = new FollowNFTDeployed()
+  // let followNFTDeployed = new FollowNFTDeployed(event.followNFT.toString());
+  // followNFTDeployed.id = event.id;
+  // followNFTDeployed.followNFT = event.params.followNFT;
+  // followNFTDeployed.timestamp = event.block.timestamp;
+  // followNFTDeployed.save();
 }
 
 export function handleFollowNFTTransfered(event: FollowNFTTransfered): void {
-  let followNFTTransfered = new FollowNFTTransfered(event.profile.toString());
-
-  followNFTTransfered.profile = event.profile;
-  followNFTTransfered.timestamp = event.timestamp;
-
-  followNFTTransfered.save();
+  // let followNFTTransfered = new FollowNFTTransfered(event.profile.toString());
+  // followNFTTransfered.profile = event.profile;
+  // followNFTTransfered.timestamp = event.timestamp;
+  // followNFTTransfered.save();
 }
 
 export function handleFollowNFTURISet(event: FollowNFTURISet): void {
-  let followNFTURISet = new FollowNFTURISet(event.profile.toString());
-
-  followNFTURISet.followModule = event.followModule;
-  followNFTURISet.followModuleReturnData = event.followModuleReturnData;
-  followNFTURISet.timestamp = event.timestamp;
-
-  followNFTURISet.save();
+  // let followNFTURISet = new FollowNFTURISet(event.profile.toString());
+  // followNFTURISet.followModule = event.followModule;
+  // followNFTURISet.followModuleReturnData = event.followModuleReturnData;
+  // followNFTURISet.timestamp = event.timestamp;
+  //followNFTURISet.save();
 }
 // export function handleFollowNFTInitialized(event: FollowNFTInitialized): void {
 //let followNFTInitialized = FollowNFTInitialized();
 
-//export function handleFollowed(event: Followed): void {
-//let followed = new Followed()
-
-//load follower profile
-// let follower = Profile.load(event.params.follower.toHexString());
-
-//load following profile
-// export function handle
-// let profileFollowing = new ProfileFollowing();
-
-// if (!profileFollowing) {
-//   profileFollowing = new ProfileFollowing();
-
-//   profileFollowing.follower = "blah";
-// }
+export function handleFollowed(event: Followed): void {
+  //let followed = new Followed()
+  //load follower profile
+  // let follower = Profile.load(event.params.follower.toHexString());
+  //load following profile
+  // export function handle
+  // let profileFollowing = new ProfileFollowing();
+  // if (!profileFollowing) {
+  //   profileFollowing = new ProfileFollowing();
+  //   profileFollowing.follower = "blah";
+}

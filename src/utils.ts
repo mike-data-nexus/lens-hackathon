@@ -28,7 +28,7 @@ export function GetProtocol(): Protocol {
 export function GetOrCreateAccount(account: Address): Account {
   let _account = Account.load(account);
 
-  if (!account) {
+  if (!_account) {
     _account = new Account(account);
 
     _account.save();
