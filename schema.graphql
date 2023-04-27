@@ -69,7 +69,7 @@ type FollowNFTInitialized @entity {
   timestamp: BigInt!
 }
 
-type followNFTTransfered @entity {
+type FollowNFTTransfered @entity {
   id: ID!
   profile: Profile!
   followNFTId: BigInt!

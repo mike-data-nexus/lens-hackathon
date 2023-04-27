@@ -43,12 +43,9 @@ export function GetProfile(profile: BigInt): Profile {
   return _profile as Profile;
 }
 
-export function GetOrCreateFollowNFTInitialized(
-  followNFT: FollowNFTInitialized
-): void {
-  //  let _followNFT = FollowNFTInitialized.load(followNFT);
-  //if (!followNFTInitialized) {
-  //   _followNFTInitialized = new followNFTInitialized(_followNFTInitialized);
-  // _followNFTInitialized.save();
-}
+//  let _followNFT = FollowNFTInitialized.load(followNFT);
+//if (!followNFTInitialized) {
+//   _followNFTInitialized = new followNFTInitialized(_followNFTInitialized);
+// _followNFTInitialized.save();
+
 // return _followNFTInitialized as FollowNFTInitialized;
