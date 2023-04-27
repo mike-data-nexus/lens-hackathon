@@ -2,9 +2,9 @@ import {
   ProfileCreated,
   PostCreated,
   MirrorCreated,
-  Followed,
   FollowModuleSet,
   FollowNFTInitialized,
+  Followed,
 } from "./../generated/LensHub/LensHub";
 import {
   AdminChanged as AdminChangedEvent,
@@ -15,8 +15,8 @@ import {
   Profile,
   Post,
   Mirror,
-  //  ProfileFollowing,
   Protocol,
+  Followed as FollowedEntity,
   FollowModule,
   Account,
   FollowNFTDeployed,
@@ -47,8 +47,9 @@ export function handleProfileCreated(event: ProfileCreated): void {
   profile.followModule = event.params.followModule.toHexString();
   profile.followModuleReturnData = event.params.followModuleReturnData;
   profile.followNFTURI = event.params.followNFTURI;
-  profile.timestamp = event.params.timestamp;
+  profile.timestamp = event.block.timestamp;
 
+  protocol.save();
   profile.save();
 }
 
@@ -61,7 +62,7 @@ export function handlePostCreated(event: PostCreated): void {
   post.collectModuleReturnData = event.params.collectModuleReturnData;
   post.refernceModule = event.params.referenceModule;
   post.refenceModuleReturnData = event.params.referenceModuleReturnData;
-  post.timestamp = event.params.timestamp;
+  post.timestamp = event.block.timestamp;
 
   post.save();
 }
@@ -75,7 +76,7 @@ export function handleMirrorCreated(event: MirrorCreated): void {
   mirror.referenceModuleData = event.params.referenceModuleData;
   mirror.referenceModule = event.params.referenceModule;
   mirror.referenceModuleReturnData = event.params.referenceModuleReturnData;
-  mirror.timestamp = event.params.timestamp;
+  mirror.timestamp = event.block.timestamp;
 
   mirror.save();
 }
@@ -91,43 +92,35 @@ export function handleFollowModuleSet(event: FollowModuleSet): void {
   followModule.profile = event.params.profileId.toString();
   followModule.save();
   profile.followModule = followModule.id;
+  profile.timestamp = event.block.timestamp;
   profile.save();
 }
 
-export function handleFollowNFTDeployed(event: FollowNFTDeployed): void {
-  //let followNFTDeployed = new FollowNFTDeployed()
-  // let followNFTDeployed = new FollowNFTDeployed(event.followNFT.toString());
-  // followNFTDeployed.id = event.id;
-  // followNFTDeployed.followNFT = event.params.followNFT;
-  // followNFTDeployed.timestamp = event.block.timestamp;
-  // followNFTDeployed.save();
-}
+export function handleFollowNFTDeployed(event: FollowNFTDeployed): void {}
 
-export function handleFollowNFTTransfered(event: FollowNFTTransfered): void {
-  // let followNFTTransfered = new FollowNFTTransfered(event.profile.toString());
-  // followNFTTransfered.profile = event.profile;
-  // followNFTTransfered.timestamp = event.timestamp;
-  // followNFTTransfered.save();
-}
+export function handleFollowNFTTransfered(event: FollowNFTTransfered): void {}
 
-export function handleFollowNFTURISet(event: FollowNFTURISet): void {
-  // let followNFTURISet = new FollowNFTURISet(event.profile.toString());
-  // followNFTURISet.followModule = event.followModule;
-  // followNFTURISet.followModuleReturnData = event.followModuleReturnData;
-  // followNFTURISet.timestamp = event.timestamp;
-  //followNFTURISet.save();
-}
-// export function handleFollowNFTInitialized(event: FollowNFTInitialized): void {
-//let followNFTInitialized = FollowNFTInitialized();
+export function handleFollowNFTURISet(event: FollowNFTURISet): void {}
 
 export function handleFollowed(event: Followed): void {
-  //let followed = new Followed()
-  //load follower profile
-  // let follower = Profile.load(event.params.follower.toHexString());
-  //load following profile
-  // export function handle
-  // let profileFollowing = new ProfileFollowing();
-  // if (!profileFollowing) {
-  //   profileFollowing = new ProfileFollowing();
-  //   profileFollowing.follower = "blah";
+  let followed = FollowedEntity.load(
+    event.transaction.hash.toHexString() +
+      "-" +
+      event.transaction.index.toString()
+  );
+
+  if (!followed) {
+    followed = new FollowedEntity(
+      event.transaction.hash.toHexString() +
+        "-" +
+        event.transaction.index.toString()
+    );
+
+    followed.follower = event.params.follower;
+    followed.profileIds = event.params.profileIds;
+    followed.followModuleDatas = event.params.followModuleDatas;
+    followed.timestamp = event.block.timestamp;
+  }
+
+  followed.save();
 }

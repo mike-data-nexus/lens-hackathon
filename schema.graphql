@@ -60,7 +60,7 @@ type ProfileFollowing @entity {
 
 type FollowNFTDeployed @entity {
   id: ID!
-  followNFT: BigInt!
+  followNFT: String!
   timestamp: BigInt!
 }
 
@@ -91,5 +91,13 @@ type FollowsApproved @entity {
   profile: Profile!
   addresses: BigInt!
   approved: Boolean!
+  timestamp: BigInt!
+}
+
+type Followed @entity {
+  id: ID!
+  follower: Bytes!
+  profileIds: [BigInt!]!
+  followModuleDatas: [Bytes!]!
   timestamp: BigInt!
 }

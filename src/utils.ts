@@ -2,6 +2,7 @@ import { Address, BigInt } from "@graphprotocol/graph-ts";
 import {
   Account,
   FollowNFTInitialized,
+  Followed,
   Profile,
   Protocol,
 } from "../generated/schema";
@@ -41,6 +42,10 @@ export function GetProfile(profile: BigInt): Profile {
   let _profile = Profile.load(profile.toString());
 
   return _profile as Profile;
+}
+
+export function GetOrCreateFollowed(followed: Address): void {
+  let _followed = Followed.load(followed.toString());
 }
 
 //  let _followNFT = FollowNFTInitialized.load(followNFT);
