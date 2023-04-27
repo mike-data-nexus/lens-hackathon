@@ -4,6 +4,7 @@ import {
   MirrorCreated,
   Followed,
   FollowModuleSet,
+  FollowNFTInitialized,
 } from "./../generated/LensHub/LensHub";
 import {
   AdminChanged as AdminChangedEvent,
@@ -90,12 +91,15 @@ export function handleFollowModuleSet(event: FollowModuleSet): void {
   profile.save();
 }
 
-export function handleFollowed(event: Followed): void {
-  //let followed = new Followed()
+// export function handleFollowNFTInitialized(event: FollowNFTInitialized): void {
+//let followNFTInitialized = FollowNFTInitialized();
 
-  //load follower profile
-  let follower = Profile.load(event.params.follower.toHexString());
-}
+//export function handleFollowed(event: Followed): void {
+//let followed = new Followed()
+
+//load follower profile
+// let follower = Profile.load(event.params.follower.toHexString());
+
 //load following profile
 // export function handle
 // let profileFollowing = new ProfileFollowing();

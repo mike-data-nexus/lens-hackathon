@@ -1,5 +1,10 @@
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { Account, Profile, Protocol } from "../generated/schema";
+import {
+  Account,
+  FollowNFTInitialized,
+  Profile,
+  Protocol,
+} from "../generated/schema";
 
 export namespace constants {
   export const protocol = "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d";
@@ -37,3 +42,13 @@ export function GetProfile(profile: BigInt): Profile {
 
   return _profile as Profile;
 }
+
+export function GetOrCreateFollowNFTInitialized(
+  followNFT: FollowNFTInitialized
+): void {
+  //  let _followNFT = FollowNFTInitialized.load(followNFT);
+  //if (!followNFTInitialized) {
+  //   _followNFTInitialized = new followNFTInitialized(_followNFTInitialized);
+  // _followNFTInitialized.save();
+}
+// return _followNFTInitialized as FollowNFTInitialized;

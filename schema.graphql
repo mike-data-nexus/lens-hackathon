@@ -22,15 +22,6 @@ type Profile @entity {
   mirror: [Mirror!] @derivedFrom(field: "profile")
 }
 
-type ProfileFollowing @entity {
-  " followerProfile - followingProfile "
-  id: ID!
-  follower: Profile!
-  following: Profile!
-  followerCount: BigInt!
-  followingCount: BigInt!
-}
-
 type Post @entity {
   id: ID!
   profile: Profile!
@@ -56,4 +47,49 @@ type Mirror @entity {
 type FollowModule @entity {
   id: ID!
   profile: Profile!
+}
+
+type ProfileFollowing @entity {
+  " followerProfile - followingProfile "
+  id: ID!
+  follower: Profile!
+  following: Profile!
+  followerCount: BigInt!
+  followingCount: BigInt!
+}
+
+type FollowNFTDeployed @entity {
+  id: ID!
+  followNFT: BigInt!
+  timestamp: BigInt!
+}
+
+type FollowNFTInitialized @entity {
+  id: ID!
+  timestamp: BigInt!
+}
+
+type followNFTTransfered @entity {
+  id: ID!
+  profile: Profile!
+  followNFTId: BigInt!
+  from: BigInt!
+  to: BigInt!
+  timestamp: BigInt!
+}
+
+type FollowNFTURISet @entity {
+  id: ID!
+  profile: Profile!
+  followModule: Bytes!
+  followModuleReturnData: Bytes!
+  timestamp: BigInt!
+}
+
+type FollowsApproved @entity {
+  id: ID!
+  profile: Profile!
+  addresses: BigInt!
+  approved: Boolean!
+  timestamp: BigInt!
 }
